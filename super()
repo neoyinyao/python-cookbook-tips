@@ -1,0 +1,4 @@
+super()是为了解决python多继承的问题，对于多继承，每个类都保存一个MRO（Method Resolution Order）
+class C(A,B)
+C.MRO = [C,A,B]
+super(A,C) = B 即MRO的A的下一个class
