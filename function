@@ -1,0 +1,27 @@
+（1）函数参数
+任意数量的positional arguments *args
+任意数量的keyword arguments **kwargs
+func(a,/,b,*,c)
+a positional argumens only
+c keyword arguments only，强制关键字参数，增强代码可读性
+（2）函数注解type hint
+增强代码可读性，有利于源码阅读，解释器不会做类型检查
+from types import Union 
+def func(a:int,b:Union[str,int]) -> int:
+  pass
+ （3）默认参数
+ 默认参数放在非默认参数后，并且默认参数引用变量时，只复制一次
+ example：
+ x = 1
+ def func(a = x):
+  b =a
+ x = 2
+ func（）
+ b = 1
+ 还需注意默认参数为可变类型时，应设为None，然后在函数体增加判断
+ def func(a,li= []):
+  li.add(a)
+ 修改为：
+ def func(a,li=None):
+  if li is None:
+    li = []
