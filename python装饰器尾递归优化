@@ -1,0 +1,25 @@
+import sys
+@tail_optimization
+def fib(i,curr = 0,next =1):
+    if i == 0: return 0
+    return fib(i-1,next,curr+next)
+
+class TailOptimizationException(BaseException):
+    def __init__(*args,**kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+def tail_optimization(func):
+    def help(*args,**kwargs):
+        f = sys._getframe()
+        if f.f_back and f.f_back.f_back and f.f_code == f.f_back.f_back.f_code:
+            raise TailOptimizationException(*args,**kwargs)
+        while True:#关键点
+            try:
+                return func(*args,**kwargs)
+            except TailOptimizationException as e:
+                args = e.args
+                kwargs = e.kwargs
+    return help
+尾调用定义：函数的最后一步返回另一个函数的调用
+和正常递归相比，在没有超过递归限制的情况下，尾递归优化并没有提高执行效率，但是尾递归优化的函数调用栈深度始终为2，可以无限递归
