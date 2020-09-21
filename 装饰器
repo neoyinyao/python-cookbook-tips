@@ -1,0 +1,1 @@
+functools.wrap用来保存被包装函数的元信息，包括__name__,__annotations__,__doc__,__module__
